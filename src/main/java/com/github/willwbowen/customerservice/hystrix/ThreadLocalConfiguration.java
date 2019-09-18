@@ -1,6 +1,5 @@
 package com.github.willwbowen.customerservice.hystrix;
 
-import com.netflix.hystrix.contrib.javanica.conf.HystrixPropertiesManager;
 import com.netflix.hystrix.strategy.HystrixPlugins;
 import com.netflix.hystrix.strategy.concurrency.HystrixConcurrencyStrategy;
 import com.netflix.hystrix.strategy.eventnotifier.HystrixEventNotifier;
@@ -27,5 +26,9 @@ public class ThreadLocalConfiguration {
         HystrixPlugins.reset();
 
         HystrixPlugins.getInstance().registerConcurrencyStrategy(new ThreadLocalAwareStrategy(existingConcurrencyStrategy));
+        HystrixPlugins.getInstance().registerEventNotifier(eventNotifier);
+        HystrixPlugins.getInstance().registerMetricsPublisher(metricsPublisher);
+        HystrixPlugins.getInstance().registerPropertiesStrategy(propertiesStrategy);
+        HystrixPlugins.getInstance().registerCommandExecutionHook(commandExecutionHook);
     }
 }
